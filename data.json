@@ -1,0 +1,107 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Ноутбуки",
+      "description": "Список всех ноутбуков"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Мониторы",
+      "description": "Список всех мониторов"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Принтеры",
+      "description": "Список всех принтеров"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Клавиатуры",
+      "description": "Список всех клавиатур"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Карты памяти",
+      "description": "Список всех карт памяти"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Ноутбук HP",
+      "description": "Классный топовый ноутбук",
+      "preview": "",
+      "category": "Ноутбуки",
+      "price": 100000,
+      "creation_date": "2023-08-01T16:33:55Z",
+      "change_date": "2023-08-01T16:33:56Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Монитор Panasonic",
+      "description": "22 дюйма",
+      "preview": "",
+      "category": "Мониторы",
+      "price": 30000,
+      "creation_date": "2023-08-01T16:33:55Z",
+      "change_date": "2023-08-01T16:33:56Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Принтер Xerox C60",
+      "description": "Лучший полиграфический принтер",
+      "preview": "",
+      "category": "Принтеры",
+      "price": 1500000,
+      "creation_date": "2023-08-01T16:33:55Z",
+      "change_date": "2023-08-01T16:33:56Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Клавиатура Keyron",
+      "description": "Беспроводная, быстрая и бесшумная",
+      "preview": "",
+      "category": "Клавиатуры",
+      "price": 3000,
+      "creation_date": "2023-08-01T16:33:55Z",
+      "change_date": "2023-08-01T16:33:56Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Карта памяти Kingston",
+      "description": "Высокоскоростная карта 128 Гб для ваших гаджетов",
+      "preview": "",
+      "category": "Карты памяти",
+      "price": 1200,
+      "creation_date": "2023-08-01T16:33:55Z",
+      "change_date": "2023-08-01T16:33:56Z"
+    }
+  }
+]
