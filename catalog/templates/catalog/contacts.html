@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
@@ -51,21 +52,37 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="name">Имя</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя" required>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Ваше имя"
+                                   required>
                         </div>
                         <div class="mb-3">
                             <label for="phone">Телефон</label>
-                            <input type="text" name="phone" class="form-control" id="phone" placeholder="Контактный телефон" required>
+                            <input type="text" name="phone" class="form-control" id="phone"
+                                   placeholder="Контактный телефон" required>
                         </div>
                         <div class="mb-3">
                             <label for="message">Сообщение</label>
-                            <textarea type="text" name="message" class="form-control" id="message" placeholder="Ваше сообщение" required></textarea>
+                            <textarea type="text" name="message" class="form-control" id="message"
+                                      placeholder="Ваше сообщение" required></textarea>
                         </div>
                         <input type="submit" value="Отправить">
                     </form>
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <h3>Контакты из БД:</h3>
+
+            {% for contact in contacts %}
+            <h5>ID контакта: {{ contact.id }}</h5>
+            <p>Имя: {{ contact.name }}</p>
+            <p>E-mail: {{ contact.email }}</p>
+            <p>Телефон: {{ contact.phone }}</p>
+            <p>Адрес: {{ contact.address }}</p>
+            {% endfor %}
+        </div>
+
     </div>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
