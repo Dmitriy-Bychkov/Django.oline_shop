@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from catalog.models import Product
 from contacts.models import Contact
@@ -6,10 +6,13 @@ from contacts.models import Contact
 
 def index(request):
     """Контроллер для главной страницы"""
-    latest_products = Product.objects.order_by('-creation_date')[:5].all()
-    for product in latest_products:
-        print(product.name)
-    context = {'latest_products': latest_products}
+    # latest_products = Product.objects.order_by('-creation_date')[:5].all()
+    # for product in latest_products:
+    #     print(product.name)
+    # context = {'latest_products': latest_products}
+
+    products = Product.objects.all()
+    context = {'products': products}
 
     return render(request, 'catalog/index.html', context)
 
@@ -28,3 +31,12 @@ def contacts(request):
     contacts = Contact.objects.all()
 
     return render(request, 'catalog/contacts.html', {'contacts': contacts})
+
+
+def home(request, product_id):
+    """Контроллер для страницы с товарами"""
+
+    product = get_object_or_404(Product, pk=product_id)
+    context = {'product': product}
+
+    return render(request, 'catalog/home.html', context)
