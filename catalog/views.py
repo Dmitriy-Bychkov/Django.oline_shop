@@ -33,10 +33,10 @@ def contacts(request):
     return render(request, 'catalog/contacts.html', {'contacts': contacts})
 
 
-def home(request, product_id):
+def description(request, product_id):
     """Контроллер для страницы с товарами"""
 
     product = get_object_or_404(Product, pk=product_id)
     context = {'product': product}
 
-    return render(request, 'catalog/home.html', context)
+    return render(request, 'catalog/description.html', context)
