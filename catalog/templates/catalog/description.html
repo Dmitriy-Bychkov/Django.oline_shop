@@ -3,7 +3,8 @@
 {% include 'catalog/includes/inc_description_header.html' %}
 <div class="row mx-2">
     <div class="col-md-4 mb-3">
-        <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+        {% load media_tags %}
+        <img src="{% mediapath object.image %}" class="img-fluid" alt="{{ product.name }}">
     </div>
     <div class="col-md-8 mb-3">
         <h2>{{ product.name }}</h2>
