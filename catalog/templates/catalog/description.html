@@ -4,7 +4,7 @@
 <div class="row mx-2">
     <div class="col-md-4 mb-3">
         {% load media_tags %}
-        <img src="{% mediapath 'products/' %}" class="img-fluid" alt="{{ product.name }}">
+        <img src="{% mediapath product.preview %}" class="img-fluid" alt="{{ product.name }}">
     </div>
     <div class="col-md-8 mb-3">
         <h2>{{ product.name }}</h2>
