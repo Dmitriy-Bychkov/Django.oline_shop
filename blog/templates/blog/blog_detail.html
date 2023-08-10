@@ -7,7 +7,10 @@
         <img src="{% mediapath blog.preview %}" class="img-fluid" alt="{{ blog.title }}">
     </div>
     <div class="col-md-8 mb-3">
-        <p>{{ blog.description }}</p>
+        <p>{{ blog.description }}</p><br><br>
+        <div class="card-footer">
+            Просмотры: {{ object.views_count }}
+        </div>
     </div>
 </div><br><br>
 {% endblock %}
