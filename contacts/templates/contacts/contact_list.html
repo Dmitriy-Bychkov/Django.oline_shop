@@ -54,11 +54,9 @@
             </div>
         </div>
     </div>
-
     <div class="col-lg-9 col-md-6 col-sm-12">
         <h3>Контакты из БД:</h3>
-
-        {% for contact in contacts %}
+        {% for contact in object_list %}
         <h5>ID контакта: {{ contact.id }}</h5>
         <p>Имя: {{ contact.name }}</p>
         <p>E-mail: {{ contact.email }}</p>
