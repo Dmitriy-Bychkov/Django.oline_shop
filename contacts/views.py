@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 from contacts.models import Contact
 
 
-def contact_view(request):
-    """Контроллер для страницы с контактной информацией"""
+class ContactListView(ListView):
+    """Контроллер для страницы контактов со списком контактов из БД"""
 
-    contacts = Contact.objects.all()
-    return render(request, 'contacts.html', {'contacts': contacts})
+    model = Contact
