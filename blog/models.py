@@ -13,6 +13,7 @@ class Blog(models.Model):
     creation_date = models.DateTimeField(verbose_name='дата создания')
     is_published = models.BooleanField(default=True, verbose_name='опубликовано')
     views_count = models.IntegerField(default=0, verbose_name='просмотры')
+    is_congratulated = models.BooleanField(default=False, verbose_name='поздравление отправлено')
 
     def __str__(self):
         return f'{self.title}, {self.description}, {self.views_count}'
