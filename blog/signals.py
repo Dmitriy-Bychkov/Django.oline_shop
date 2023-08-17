@@ -11,7 +11,8 @@ def check_views(sender, instance, **kwargs):
     if instance.views_count >= 100 and not instance.is_congratulated:
         send_mail(
             'Поздравление с достижением 100 просмотров',
-            f'Статья "{instance.title}" достигла 100 просмотров!',
+            f'Поздравляю с успехом!\n'
+            f'Твоя статья "{instance.title}" достигла 100 просмотров!',
             'Dm1tr1y11@yandex.ru',
             ['582620@gmail.com'],
             fail_silently=False,
