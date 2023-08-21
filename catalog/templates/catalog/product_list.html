@@ -1,6 +1,9 @@
 {% extends 'catalog/base.html' %}
 {% block content %}
 {% include 'catalog/includes/inc_index_header.html' %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+</div>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for product in products %}
     <div class="col">
