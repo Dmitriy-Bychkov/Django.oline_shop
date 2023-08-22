@@ -2,6 +2,7 @@ from django import forms
 
 from catalog.models import Product, Version
 
+# Список запрещенных слов, проверяемых при заполнении формы
 FORBIDDEN_WORDS = ['казино', 'криптовалюта', 'крипта',
                    'биржа', 'дешево', 'бесплатно', 'обман',
                    'полиция', 'радар'
