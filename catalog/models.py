@@ -50,7 +50,7 @@ class Version(models.Model):
     is_current_version = models.BooleanField(default=False, verbose_name='признак текущей версии')
 
     def __str__(self):
-        return f'{self.version_name}, {self.version_number}'
+        return f'{self.product}, {self.version_name}, {self.version_number}'
 
     class Meta:
         """Представление написания заголовков в админке"""
