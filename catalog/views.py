@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm
@@ -9,9 +9,22 @@ class ProductListView(ListView):
     """Контроллер для главной страницы со списком товаров"""
 
     model = Product
-    extra_context = {
-        'products': Product.objects.all()
-    }
+
+    def get_context_data(self, **kwargs):
+        """Выводим в общий список информацию об активных версиях продукта"""
+
+        context = super().get_context_data(**kwargs)
+
+        for product in context['object_list']:
+            active_version = product.version_set.filter(is_current_version=True).first()
+            if active_version:
+                product.active_version_number = active_version.version_number
+                product.active_version_name = active_version.version_name
+            else:
+                product.active_version_number = None
+                product.active_version_name = None
+
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -40,4 +53,5 @@ class ProductDelete(DeleteView):
     """Контроллер для удаления продукта"""
 
     model = Product
+
     success_url = reverse_lazy('catalog:list')
