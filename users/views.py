@@ -12,7 +12,9 @@ from users.models import User
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
 from users.sender import mail_sender
-#from django.core.mail import send_mail
+
+
+# from django.core.mail import send_mail
 
 
 class LoginView(BaseLoginView):
@@ -106,10 +108,8 @@ class UserUpdateView(UpdateView):
 def generate_password(request):
     """Сгенерировать новый пароль для пользователя по желанию"""
 
-    print('я запустилась')
     new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
-    print('я сгенирировала пароль')
-    send_mail(request.user.email, "Changed password on site", new_password)
+    mail_sender(request.user.email, "Changed password on site", new_password)
     request.user.set_password(new_password)
     request.user.save()
     return redirect(reverse("index"))
@@ -128,7 +128,7 @@ def password_reset(request):
 
             subject = "Changed password on site"
             message = f"Your new password: {new_password}"
-            send_mail(user.email, subject, message)
+            mail_sender(user.email, subject, message)
 
             return redirect(reverse("users:login"))  # Перенаправление на страницу входа
         except User.DoesNotExist:
