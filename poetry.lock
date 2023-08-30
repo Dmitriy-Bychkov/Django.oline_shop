@@ -82,6 +82,17 @@ files = [
 ]
 
 [[package]]
+name = "decouple"
+version = "0.0.7"
+description = "Decoupling logic"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "decouple-0.0.7.tar.gz", hash = "sha256:c253c1cc62b76e9720a066f334552548c6de1884bc3bdf456ddb62d61b867b09"},
+]
+
+[[package]]
 name = "django"
 version = "4.2.3"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -551,4 +562,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "8a7b10801d6551d83ea5fecd56a8ab63aa86b42083ef627ee775d0e0581f1bbe"
+content-hash = "3a57407dae255dca914268e8f4eeec9088ba8be32da86147e259ab0dbbc69bd4"
