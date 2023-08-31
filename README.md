@@ -1,2 +1,2 @@
-# Homework_19.2
+# Django.oline_shop
 The first project using Django framework
