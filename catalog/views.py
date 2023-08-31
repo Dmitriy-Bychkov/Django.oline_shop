@@ -45,6 +45,7 @@ class ProductCreateView(CreateView):
         self.object = form.save()
         self.object.owner = self.request.user
         self.object.save()
+
         return super().form_valid(form)
 
 
@@ -86,5 +87,4 @@ class ProductDelete(DeleteView):
     """Контроллер для удаления продукта"""
 
     model = Product
-
     success_url = reverse_lazy('catalog:list')
