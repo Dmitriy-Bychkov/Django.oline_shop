@@ -141,7 +141,8 @@ EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'Dm1tr1y11@yandex.ru'
-EMAIL_HOST_PASSWORD = 'h!W(S@m1VDLi'
+# EMAIL_HOST_PASSWORD = 'h!W(S@m1VDLi'  # обычный пароль
+EMAIL_HOST_PASSWORD = 'gqwfrlxxruwacfgz'  # пароль приложения яндекс
 
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SERVER_EMAIL = EMAIL_HOST_USER
