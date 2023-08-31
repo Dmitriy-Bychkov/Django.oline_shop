@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django.oline_shop"
+name = "Online_shop"
 version = "0.1.0"
 description = ""
 authors = ["Dmitriy Bychkov <582620@gmail.com>"]
