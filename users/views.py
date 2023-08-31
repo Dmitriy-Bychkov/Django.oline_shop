@@ -15,8 +15,6 @@ from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
-# from users.sender import mail_sender
-
 
 from django.core.mail import send_mail
 
@@ -50,11 +48,7 @@ class RegisterView(CreateView):
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         activation_url = reverse_lazy('users:confirm_email', kwargs={'uidb64': uid, 'token': token})
         current_site = '127.0.0.1:8000'
-        # mail_sender(
-        #     to=user.email,
-        #     theme="Регистрация на сайте!",
-        #     message=f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}"
-        # )
+
         send_mail(
             subject='Подтверждение адреса',
             message=f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}",
@@ -62,6 +56,7 @@ class RegisterView(CreateView):
             recipient_list=[user.email],
             fail_silently=False
         )
+
         return redirect('users:email_confirmation_sent')
 
 
@@ -115,8 +110,15 @@ def generate_password(request):
     """Сгенерировать новый пароль для пользователя по желанию"""
 
     new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
-    # mail_sender(request.user.email, "Changed password on site", new_password)
-    send_mail(request.user.email, "Changed password on site", new_password)
+
+    send_mail(
+        subject='Смена пароля',
+        message=f"Вот ваш пароль: {new_password}",
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[request.user.email],
+        fail_silently=False
+    )
+
     request.user.set_password(new_password)
     request.user.save()
 
@@ -134,10 +136,16 @@ def password_reset(request):
             user.set_password(new_password)
             user.save()
 
-            subject = "Changed password on site"
+            subject = "Смена пароля на сайте, если забыли"
             message = f"Your new password: {new_password}"
-            # mail_sender(user.email, subject, message)
-            send_mail(user.email, subject, message)
+
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[user.email],
+                fail_silently=False
+            )
 
             return redirect(reverse("users:login"))  # Перенаправление на страницу входа
 
