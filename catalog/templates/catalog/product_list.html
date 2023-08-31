@@ -25,10 +25,10 @@
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3 flex-grow-1">
                     <li>{{ product.description|slice:":100" }}</li>
                 </ul>
-                <h6 class="card-title pricing-card-title">Создатель: {{ product.owner }}</h6>
+                <h6 class="card-title pricing-card-title">Создатель: {{ product.owner|default:"отсутствует" }}</h6>
                 <br>
                 <div class="d-flex flex-column">
-                    {% if user.is_authenticated %}
+                    {% if request.user == product.owner %}
                     <a href="/products/{{ product.id }}/">Подробнее</a><br>
                     <button type="button" class="btn btn-primary">Купить</button>
                     {% endif %}
