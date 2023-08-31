@@ -1,4 +1,6 @@
 import random
+
+# from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView as BaseLoginView, PasswordResetDoneView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
@@ -52,11 +54,11 @@ class RegisterView(CreateView):
             message=f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}"
         )
         # send_mail(
-        #     'Поздравление с достижением 100 просмотров',
-        #     f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}",
-        #     'Dm1tr1y11@yandex.ru',
-        #     [user.email],
-        #     fail_silently=False,
+        #     subject='Подтверждение адреса',
+        #     message=f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}",
+        #     from_email=settings.EMAIL_HOST_USER,
+        #     recipient_list=[user.email],
+        #     fail_silently=False
         # )
         return redirect('users:email_confirmation_sent')
 
@@ -81,6 +83,7 @@ class UserConfirmEmailView(View):
             user.is_active = True
             user.save()
             login(request, user)
+
             return redirect('users:email_confirmed')
         else:
             return redirect('users:email_confirmation_failed')
@@ -112,7 +115,8 @@ def generate_password(request):
     mail_sender(request.user.email, "Changed password on site", new_password)
     request.user.set_password(new_password)
     request.user.save()
-    return redirect(reverse("index"))
+
+    return redirect(reverse("catalog:list"))
 
 
 def password_reset(request):
@@ -131,7 +135,10 @@ def password_reset(request):
             mail_sender(user.email, subject, message)
 
             return redirect(reverse("users:login"))  # Перенаправление на страницу входа
+
         except User.DoesNotExist:
+
             return render(request, 'users/registration/password_reset_form.html',
                           {'error_message': 'User not found'})  # Отображение формы с сообщением об ошибке
+
     return render(request, 'users/registration/password_reset_form.html')  # Вывод формы для ввода email
