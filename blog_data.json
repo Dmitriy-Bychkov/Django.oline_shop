@@ -1,0 +1,128 @@
+[
+  {
+    "model": "blog.blog",
+    "pk": 5,
+    "fields": {
+      "title": "12442екннен",
+      "slug": null,
+      "description": "5735435ререрапрпарапghjghjjj4jkjkjkjhk",
+      "preview": "",
+      "creation_date": "2023-08-09T00:00:00Z",
+      "is_published": false,
+      "views_count": 6,
+      "is_congratulated": false
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 6,
+    "fields": {
+      "title": "dgtrt999",
+      "slug": null,
+      "description": "gfgfdgfdg",
+      "preview": "",
+      "creation_date": "2023-08-09T00:00:00Z",
+      "is_published": false,
+      "views_count": 3,
+      "is_congratulated": false
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 9,
+    "fields": {
+      "title": "rewerwer",
+      "slug": null,
+      "description": "werwerwerewr",
+      "preview": "",
+      "creation_date": "2023-08-09T00:00:00Z",
+      "is_published": false,
+      "views_count": 4,
+      "is_congratulated": false
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 11,
+    "fields": {
+      "title": "Новая статья SLUG",
+      "slug": "novaya-statya-slug",
+      "description": "Новая статья SLUGНовая статья SLUGНовая статья SLUGНовая статья SLUGНовая статья SLUGНовая статья SLUGНовая статья SLUGНовая статья SLUGрпорпорп",
+      "preview": "blog/Beautiful-photos-and-pictures-on-various-subjects-01.jpg",
+      "creation_date": "2023-08-09T00:00:00Z",
+      "is_published": true,
+      "views_count": 128,
+      "is_congratulated": true
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 13,
+    "fields": {
+      "title": "Статья1",
+      "slug": "statya1",
+      "description": "Статья1Статья1Статья1Статья1Статья1",
+      "preview": "",
+      "creation_date": "2023-08-09T00:00:00Z",
+      "is_published": true,
+      "views_count": 102,
+      "is_congratulated": true
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 14,
+    "fields": {
+      "title": "Самая лучшая статья!",
+      "slug": "samaya-luchshaya-statya",
+      "description": "Самая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяСамая лучшая статьяfgfghgfhfghfgghfh",
+      "preview": "",
+      "creation_date": "2023-08-10T00:00:00Z",
+      "is_published": true,
+      "views_count": 105,
+      "is_congratulated": true
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 19,
+    "fields": {
+      "title": "Test",
+      "slug": "test",
+      "description": "test",
+      "preview": "",
+      "creation_date": "2023-08-10T00:00:00Z",
+      "is_published": true,
+      "views_count": 105,
+      "is_congratulated": true
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 20,
+    "fields": {
+      "title": "test2",
+      "slug": "test2",
+      "description": "test2test2test2test2",
+      "preview": "",
+      "creation_date": "2023-08-10T00:00:00Z",
+      "is_published": true,
+      "views_count": 108,
+      "is_congratulated": true
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 21,
+    "fields": {
+      "title": "Конкурс ресурсов",
+      "slug": "konkurs-resursov",
+      "description": "Конкурс ресурсов.Конкурс ресурсов",
+      "preview": "",
+      "creation_date": "2023-08-15T00:00:00Z",
+      "is_published": true,
+      "views_count": 111,
+      "is_congratulated": true
+    }
+  }
+]

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'catalog',
     'contacts',
     'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -130,10 +131,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/users/'
+
 # Настройка почтового сервиса Яндекс для отправки электронной почты
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'Dm1tr1y11@yandex.ru'
-EMAIL_HOST_PASSWORD = 'h!W(S@m1VDLi'
+# EMAIL_HOST_PASSWORD = 'h!W(S@m1VDLi'  # обычный пароль
+EMAIL_HOST_PASSWORD = 'gqwfrlxxruwacfgz'  # пароль приложения яндекс
+
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# SERVER_EMAIL = EMAIL_HOST_USER
+# EMAIL_ADMIN = EMAIL_HOST_USER

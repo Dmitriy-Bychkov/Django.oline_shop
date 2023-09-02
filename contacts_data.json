@@ -1,0 +1,22 @@
+[
+  {
+    "model": "contacts.contact",
+    "pk": 1,
+    "fields": {
+      "name": "Дмитрий",
+      "email": "dmitriy@yandex.ru",
+      "phone": "8-999-125-98-74",
+      "address": "Иркутск, верхняя набережная, 50-35"
+    }
+  },
+  {
+    "model": "contacts.contact",
+    "pk": 2,
+    "fields": {
+      "name": "555",
+      "email": "dmitriy@yandex.ru",
+      "phone": "+7(950)096-51-81",
+      "address": "Иркутск, верхняя набережная, 50-35"
+    }
+  }
+]
