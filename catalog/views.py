@@ -1,10 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.forms import inlineformset_factory
-from django.http import Http404
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
-
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 
 
@@ -29,11 +28,30 @@ class ProductListView(ListView):
 
         return context
 
-    # def get_queryset(self):
-    #     return super().get_queryset().filter(
-    #         name=self.kwargs.get('pk'),
-    #         owner=self.request.user
-    #     )
+    def get_queryset(self):
+        """Выводим информацию согласно правам доступа"""
+
+        user = self.request.user
+
+        # Если пользователь аутентифицирован (в том числе владелец товара)
+        if user.is_authenticated:
+
+            # Для администраторов показываем все продукты
+            if user.is_staff or user.is_superuser:
+                queryset = super().get_queryset()
+
+            # Для остальных аутентифицированных пользователей
+            else:
+                queryset = super().get_queryset().filter(
+                    status=Product.STATUS_PUBLISHED
+                )
+        else:
+            # Для неаутентифицированных пользователей
+            queryset = super().get_queryset().filter(
+                status=Product.STATUS_PUBLISHED
+            )
+
+        return queryset
 
 
 class ProductDetailView(DetailView):
@@ -57,21 +75,24 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, UpdateView):
     """Контроллер для редактирования товара"""
 
     model = Product
-    form_class = ProductForm
+    form_class = ProductModeratorForm
     success_url = reverse_lazy('catalog:list')
+    permission_required = 'catalog.change_product'
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        if self.object.owner != self.request.user:
-            raise Http404
-        return self.object
+    def test_func(self):
+        user = self.request.user
+        product = self.get_object()
 
-    def get_success_url(self):
-        return reverse('catalog:update_product', args=[self.kwargs.get('pk')])
+        if product.owner == user or user.is_staff:
+            return True
+        return False
+
+    def handle_no_permission(self):
+        return redirect(reverse_lazy('catalog:list'))
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
