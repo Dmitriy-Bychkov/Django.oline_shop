@@ -6,8 +6,8 @@ from catalog.models import Product, Category, Version
 class ProductAdmin(admin.ModelAdmin):
     """Представление раздела - продуктов в админке"""
 
-    list_display = ('id', 'name', 'price', 'category')
-    list_filter = ('category',)
+    list_display = ('id', 'name', 'price', 'category', 'status',)
+    list_filter = ('category', 'status', 'owner',)
     search_fields = ('name', 'description',)
 
 

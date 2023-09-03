@@ -24,7 +24,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        exclude = ('owner',)
+        exclude = ('owner', 'status',)
 
     def clean(self):
         """Метод для валидации полей названия и описания продукта"""
@@ -40,6 +40,14 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
             self.add_error('description', 'Недопустимое слово в описании продукта!')
 
         return cleaned_data
+
+
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    """Класс для генерации формы модератора"""
+
+    class Meta:
+        model = Product
+        fields = ('description', 'category', 'status',)
 
 
 class VersionForm(StyleFormMixin, forms.ModelForm):
