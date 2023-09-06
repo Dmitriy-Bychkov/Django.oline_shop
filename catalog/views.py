@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
+from catalog.services import get_category_by_pk, get_categories
 
 
 class ProductListView(ListView):
@@ -16,6 +17,9 @@ class ProductListView(ListView):
         """Выводим в общий список информацию об активных версиях продукта"""
 
         context = super().get_context_data(**kwargs)
+
+        categories = get_categories()
+        context['categories_list'] = categories
 
         for product in context['object_list']:
             active_version = product.version_set.filter(is_current_version=True).first()
@@ -50,6 +54,19 @@ class ProductListView(ListView):
             queryset = super().get_queryset().filter(
                 status=Product.STATUS_PUBLISHED
             )
+
+        return queryset
+
+
+class CategoryProductListView(ProductListView):
+    '''
+    Класс для отображения продуктов на главной странице по категориям
+    '''
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset(*args, **kwargs)
+        category = get_category_by_pk(self.kwargs.get('category_pk'))
+        queryset = queryset.filter(category=category)
 
         return queryset
 
