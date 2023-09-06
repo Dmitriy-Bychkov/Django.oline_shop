@@ -2,7 +2,6 @@ import random
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import LoginView as BaseLoginView, PasswordResetDoneView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
@@ -11,12 +10,12 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from django.views.generic import CreateView, UpdateView, TemplateView
 from django.urls import reverse_lazy, reverse
-from users.forms import UserRegisterForm, UserProfileForm
+
+from catalog.services import send_email
+from users.forms import UserRegisterForm, UserProfileForm, PasswordForm
 from users.models import User
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
-
-from django.core.mail import send_mail
 
 
 class LoginView(BaseLoginView):
@@ -49,13 +48,14 @@ class RegisterView(CreateView):
         activation_url = reverse_lazy('users:confirm_email', kwargs={'uidb64': uid, 'token': token})
         current_site = '127.0.0.1:8000'
 
-        send_mail(
-            subject='Подтверждение адреса',
-            message=f"Подтвердите свой адрес электронной почты. Перейдите по ссылке: http://{current_site}{activation_url}",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[user.email],
-            fail_silently=False
-        )
+        subject = 'Подтверждение адреса электронной почты'
+        message = (f"Для подтверждения адреса электронной почты"
+                   f"перейдите по ссылке: http://{current_site}{activation_url}")
+        recipient_list = [user.email]
+
+        # передаем сервисной функции переменные для отправки email пользователю
+        # со ссылкой для подтверждения почты
+        send_email(subject, message, recipient_list)
 
         return redirect('users:email_confirmation_sent')
 
@@ -106,27 +106,35 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
 
 @login_required
-def generate_password(request):
-    """Сгенерировать новый пароль для пользователя по желанию"""
+def set_new_password(request):
+    """Установить новый пароль, введенный пользователем в его профиле"""
 
-    new_password = "".join([str(random.randint(0, 9)) for _ in range(12)])
+    if request.method == 'POST':
+        form = PasswordForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data['new_password']
 
-    send_mail(
-        subject='Смена пароля',
-        message=f"Вот ваш пароль: {new_password}",
-        from_email=settings.EMAIL_HOST_USER,
-        recipient_list=[request.user.email],
-        fail_silently=False
-    )
+            subject = 'Смена пароля вашего профиля на сайте'
+            message = f"Пароль успешно изменен.\nВаш новый пароль: {new_password}"
+            recipient_list = [request.user.email]
 
-    request.user.set_password(new_password)
-    request.user.save()
+            # передаем сервисной функции переменные для отправки email с новым паролем
+            send_email(subject, message, recipient_list)
 
-    return redirect(reverse("catalog:list"))
+            request.user.set_password(new_password)
+            request.user.save()
+
+            return redirect(reverse("catalog:list"))
+    else:
+        form = PasswordForm()
+
+    return render(request, 'users/change_password.html', {'form': form})
 
 
 def password_reset(request):
-    """Сгенерировать новый пароль для пользователя если пароль забыли"""
+    """
+    Сгенерировать новый пароль пользователя при входе на сайт, если забыли пароль
+    """
 
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -136,16 +144,12 @@ def password_reset(request):
             user.set_password(new_password)
             user.save()
 
-            subject = "Смена пароля на сайте, если забыли"
-            message = f"Your new password: {new_password}"
+            subject = "Сброс пароля на сайте"
+            message = f"Пароль успешно сброшен.\nВаш новый пароль: {new_password}"
+            recipient_list = [user.email]
 
-            send_mail(
-                subject=subject,
-                message=message,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[user.email],
-                fail_silently=False
-            )
+            # передаем сервисной функции переменные для отправки email с новым паролем
+            send_email(subject, message, recipient_list)
 
             return redirect(reverse("users:login"))  # Перенаправление на страницу входа
 
